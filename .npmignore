@@ -1,0 +1,7 @@
+src/
+tsconfig.json
+tsconfig.build.json
+eslint.config.js
+.github/
+.idea/
+coverage/

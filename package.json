@@ -1,0 +1,58 @@
+{
+  "name": "@glushkov.us/typography",
+  "version": "0.0.0",
+  "description": "Typography utilities for text preparation.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaterSantyago/typography.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PaterSantyago/typography/issues"
+  },
+  "homepage": "https://github.com/PaterSantyago/typography#readme",
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "ci": "pnpm run format && pnpm run lint && pnpm run check && pnpm test && pnpm run build",
+    "clean": "rm -rf dist coverage",
+    "format": "prettier . --check",
+    "lint": "eslint .",
+    "prepack": "pnpm run build",
+    "prepare": "pnpm run setup-pre-commit",
+    "setup-pre-commit": "node scripts/setup-pre-commit.mjs",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "hyphen": "^1.14.1"
+  },
+  "devDependencies": {
+    "@types/hyphen": "^1.14.0",
+    "@types/node": "^25.9.1",
+    "eslint": "^10.4.0",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0",
+    "vitest": "^4.1.7"
+  }
+}
