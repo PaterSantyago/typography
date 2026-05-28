@@ -7,5 +7,5 @@
     "rootDir": ".",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "scripts/**/*.mjs"]
+  "include": ["features/**/*.ts", "src/**/*.ts", "scripts/**/*.mjs"]
 }

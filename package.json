@@ -41,16 +41,28 @@
     "prepack": "pnpm run build",
     "prepare": "pnpm run setup-pre-commit",
     "setup-pre-commit": "node scripts/setup-pre-commit.mjs",
-    "test": "vitest run --passWithNoTests"
+    "test": "pnpm run test:unit && pnpm run test:acceptance",
+    "test:acceptance": "pnpm run build && NODE_OPTIONS='--import tsx' cucumber-js --import 'features/step-definitions/**/*.ts'",
+    "test:unit": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "hyphen": "^1.14.1"
   },
+  "peerDependencies": {
+    "react": ">=18 <20",
+    "react-dom": ">=18 <20"
+  },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.9.0",
     "@types/hyphen": "^1.14.0",
     "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^10.4.0",
     "prettier": "^3.8.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tsx": "^4.22.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0",
     "vitest": "^4.1.7"
