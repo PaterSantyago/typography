@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   TextWithTypography,
+  typographPlainTextWithConfig,
   resolveTypographyConfig,
   typographText,
-  typographTextWithConfig,
   validateTypographyConfig,
 } from "./index.js";
 import type { TextWithTypographyProps } from "./index.js";
@@ -93,7 +93,7 @@ describe("typographText", () => {
     expect(
       typographText("\"Don't worry... we'll ship it in 2026 -- probably.\"", {
         locale: "en-US",
-      }),
+      }).text,
     ).toBe("“Don’t worry… we’ll ship it in 2026—probably.”");
   });
 
@@ -112,7 +112,7 @@ describe("typographText", () => {
       },
     });
 
-    expect(typographTextWithConfig("accessibility...", config)).toBe(
+    expect(typographPlainTextWithConfig("accessibility...", config)).toBe(
       "access\u00ADibility…",
     );
   });

@@ -15,7 +15,7 @@ import type {
 } from "react";
 
 import { resolveTypographyConfig } from "./config.js";
-import { typographTextWithConfig } from "./text.js";
+import { typographPlainTextWithConfig } from "./text.js";
 import type {
   ResolvedTypographyConfig,
   TextWithTypographyOwnProps,
@@ -209,7 +209,7 @@ function processReactNode(
   depth: number,
 ): ProcessResult {
   if (typeof node === "string") {
-    const typographed = typographTextWithConfig(node, config);
+    const typographed = typographPlainTextWithConfig(node, config);
     return {
       changed: typographed !== node,
       node: typographed,
@@ -222,7 +222,7 @@ function processReactNode(
     }
 
     const source = String(node);
-    const typographed = typographTextWithConfig(source, config);
+    const typographed = typographPlainTextWithConfig(source, config);
     return {
       changed: true,
       node: typographed,
@@ -273,7 +273,7 @@ function processAdjacentTextRuns(
       return;
     }
 
-    const typographed = typographTextWithConfig(textRun, config);
+    const typographed = typographPlainTextWithConfig(textRun, config);
     processed.push(typographed);
     changed ||= typographed !== textRun;
     textRun = "";

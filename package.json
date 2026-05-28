@@ -46,7 +46,8 @@
     "test:unit": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "hyphen": "^1.14.1"
+    "hyphen": "^1.14.1",
+    "parse5": "^8.0.1"
   },
   "peerDependencies": {
     "react": ">=18 <20",

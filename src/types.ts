@@ -10,6 +10,10 @@ export type TypographyConcreteLocale =
 
 export type TypographyLocale = TypographyConcreteLocale | "auto";
 
+export type TypographerInputFormat = "plain" | "html";
+
+export type TypographerOutputMode = "unicode" | "html-entities";
+
 export type TypographyPreset =
   | "minimal"
   | "ui"
@@ -267,6 +271,90 @@ export type TypographyDiagnostic = {
   message: string;
   path?: readonly number[];
   fragment?: string;
+};
+
+export type TypographerWarningCode =
+  | "AUTO_LOCALE_FALLBACK_USED"
+  | "UNBALANCED_QUOTES"
+  | "ES_MISSING_OPENING_QUESTION_MARK"
+  | "ES_MISSING_OPENING_EXCLAMATION_MARK"
+  | "AMBIGUOUS_PRIME_MARKS"
+  | "PROTECTED_FRAGMENT_SKIPPED"
+  | "EXISTING_SOFT_HYPHENS_REMAPPED";
+
+export type TypographerWarning = {
+  code: TypographerWarningCode;
+  severity: "info" | "warning" | "error";
+  fragment?: string;
+  message: string;
+};
+
+export type TypographerStats = {
+  replacedQuotes: number;
+  replacedDashes: number;
+  insertedNbsp: number;
+  insertedSoftHyphens: number;
+  skippedProtectedFragments: number;
+};
+
+export type TypographerNumbersOptions = {
+  spanishDecimalSeparator: "preserve" | "comma" | "dot";
+  englishPercentStyle: "no-space" | "si-space";
+  spanishPercentStyle: "space";
+  normalizeSpanishThousands: boolean;
+};
+
+export type TypographerSpanishOptions = {
+  insertOpeningPunctuation: "never" | "safe-start-only" | "strict";
+  correctSiglaApostrophePlural: boolean;
+};
+
+export type TypographerOptions = {
+  outputMode: TypographerOutputMode;
+  localeFallback: "en-US" | "en-GB" | "es";
+  quotes: {
+    normalize: boolean;
+    style: QuoteStyle;
+    movePunctuation: "never" | "safe" | "strict-locale";
+  };
+  dashes: {
+    normalizeHyphenMinus: boolean;
+    englishEmDashStyle: "no-spaces" | "spaced-nbsp-before";
+    spanishRayaChar: "\u2014" | "\u2015";
+    normalizeSpanishEnDashToHyphenInRanges: boolean;
+  };
+  spaces: {
+    useNbsp: boolean;
+    useNarrowNbspForThousands: boolean;
+    bindShortWords: boolean;
+    bindInitials: boolean;
+    bindNumbersAndUnits: boolean;
+  };
+  numbers: TypographerNumbersOptions;
+  spanish: TypographerSpanishOptions;
+  hyphenation: {
+    enabled: boolean;
+    minWordLength: number;
+    skipHeadings: boolean;
+    skipAllCaps: boolean;
+    skipCapitalizedWords: boolean;
+    hyphenateCompoundWords: boolean;
+    remapExistingSoftHyphens: boolean;
+    exceptions: Partial<Record<TypographyConcreteLocale, readonly string[]>>;
+  };
+};
+
+export type TypographerInput = {
+  text: string;
+  format: TypographerInputFormat;
+  locale: TypographyLocale;
+  options?: PartialDeep<TypographerOptions>;
+};
+
+export type TypographerOutput = {
+  text: string;
+  warnings: TypographerWarning[];
+  stats: TypographerStats;
 };
 
 export type TypographyProviderProps = {

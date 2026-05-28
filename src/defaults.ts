@@ -1,4 +1,8 @@
-import type { TypographyConfig, TypographyOperationId } from "./types.js";
+import type {
+  TypographerOptions,
+  TypographyConfig,
+  TypographyOperationId,
+} from "./types.js";
 
 export const defaultOperationOrder: readonly TypographyOperationId[] = [
   "normalizeUnicode",
@@ -116,4 +120,47 @@ export const typographyDefaults: TypographyConfig = {
     maxDepth: null,
   },
   hyphenators: {},
+};
+
+export const typographerDefaults: TypographerOptions = {
+  outputMode: "unicode",
+  localeFallback: "en-US",
+  quotes: {
+    normalize: true,
+    style: "locale-default",
+    movePunctuation: "safe",
+  },
+  dashes: {
+    normalizeHyphenMinus: true,
+    englishEmDashStyle: "no-spaces",
+    spanishRayaChar: "\u2014",
+    normalizeSpanishEnDashToHyphenInRanges: true,
+  },
+  spaces: {
+    useNbsp: true,
+    useNarrowNbspForThousands: true,
+    bindShortWords: true,
+    bindInitials: true,
+    bindNumbersAndUnits: true,
+  },
+  numbers: {
+    spanishDecimalSeparator: "preserve",
+    englishPercentStyle: "no-space",
+    spanishPercentStyle: "space",
+    normalizeSpanishThousands: false,
+  },
+  spanish: {
+    insertOpeningPunctuation: "never",
+    correctSiglaApostrophePlural: false,
+  },
+  hyphenation: {
+    enabled: false,
+    minWordLength: 7,
+    skipHeadings: false,
+    skipAllCaps: true,
+    skipCapitalizedWords: false,
+    hyphenateCompoundWords: false,
+    remapExistingSoftHyphens: false,
+    exceptions: {},
+  },
 };

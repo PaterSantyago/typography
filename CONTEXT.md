@@ -25,8 +25,16 @@ A named text transformation that the typography engine may apply as part of a co
 _Avoid_: Filter, plugin, formatter step
 
 **String Typography Utility**:
-A public API for applying the typography engine to a plain string without a React boundary. It is for explicit prop or preprocessing use, not hidden rewriting of React props.
+A public API for applying the typography engine without a React boundary. It returns processed text with warnings and stats, and can operate on plain text or an HTML fragment.
 _Avoid_: HTML postprocessor, prop auto-typographer
+
+**Engine Options**:
+Configuration for the non-React typography engine, including input format, output serialization, warnings, stats, and text-processing rules. It is separate from React traversal configuration.
+_Avoid_: React provider config, component props
+
+**Protected Fragment**:
+A technical fragment that the typography engine must preserve byte-for-byte while processing surrounding text. URLs, email addresses, code-like tokens, file paths, HTML tags, and excluded HTML element contents are protected fragments.
+_Avoid_: Typographical text, rich text content
 
 ## Example Dialogue
 

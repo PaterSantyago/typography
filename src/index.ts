@@ -9,8 +9,18 @@ export {
   resolveTypographyConfig,
   validateTypographyConfig,
 } from "./config.js";
-export { defaultOperationOrder, typographyDefaults } from "./defaults.js";
-export { typographText, typographTextWithConfig } from "./text.js";
+export {
+  defaultOperationOrder,
+  typographerDefaults,
+  typographyDefaults,
+} from "./defaults.js";
+export {
+  legacyTypographText,
+  typographPlainTextWithConfig,
+  typographText,
+} from "./text.js";
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export { typographTextWithConfig } from "./text.js";
 
 export type {
   ListOverride,
@@ -21,6 +31,16 @@ export type {
   SpanishPunctuationConfig,
   TextWithTypographyOwnProps,
   TextWithTypographyProps,
+  TypographerInput,
+  TypographerInputFormat,
+  TypographerNumbersOptions,
+  TypographerOptions,
+  TypographerOutput,
+  TypographerOutputMode,
+  TypographerSpanishOptions,
+  TypographerStats,
+  TypographerWarning,
+  TypographerWarningCode,
   TypographyConcreteLocale,
   TypographyConfig,
   TypographyConfigOverride,
