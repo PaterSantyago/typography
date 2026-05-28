@@ -9,7 +9,7 @@ import {
   TypographyProvider,
   TypographySkip,
   type TypographyHyphenator,
-} from "../../dist/index.js";
+} from "../../src/index.js";
 
 interface ScenarioWorld {
   rendered?: string;
