@@ -357,12 +357,6 @@ export type TypographerOutput = {
   stats: TypographerStats;
 };
 
-export type TypographyProviderProps = {
-  children?: ReactNode;
-  config?: TypographyConfigOverride;
-  inherit?: boolean;
-};
-
 export type TypographySkipProps = {
   children?: ReactNode;
 };

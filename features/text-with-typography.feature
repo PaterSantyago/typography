@@ -43,8 +43,8 @@ Feature: TextWithTypography
       Use the command <code>npm install --save</code> and click “Continue”.
       """
 
-  Scenario: Local locale overrides provider locale
-    Given an English provider contains an English block and a local Spanish block
+  Scenario: Local locale overrides site typography defaults
+    Given site typography defaults contain an English block and a local Spanish block
     When the React tree is rendered to static markup
     Then the static markup is
       """

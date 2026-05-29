@@ -1,12 +1,4 @@
-import {
-  Fragment,
-  cloneElement,
-  createContext,
-  createElement,
-  isValidElement,
-  useContext,
-  useMemo,
-} from "react";
+import { Fragment, cloneElement, createElement, isValidElement } from "react";
 import type {
   ComponentPropsWithoutRef,
   ElementType,
@@ -23,7 +15,6 @@ import type {
   TypographyExclusionOverride,
   TypographyHyphenationOverride,
   TypographyOperationOverrides,
-  TypographyProviderProps,
   TypographySkipProps,
   TypographyTraversalOverride,
 } from "./types.js";
@@ -59,32 +50,6 @@ interface ProcessResult {
   node: ReactNode;
 }
 
-const TypographyConfigContext = createContext<ResolvedTypographyConfig | null>(
-  null,
-);
-
-export function TypographyProvider({
-  children,
-  config,
-  inherit = true,
-}: TypographyProviderProps): ReactElement {
-  const parentConfig = useContext(TypographyConfigContext);
-  const value = useMemo(
-    () =>
-      resolveTypographyConfig(
-        inherit && parentConfig !== null ? parentConfig : undefined,
-        config,
-      ),
-    [config, inherit, parentConfig],
-  );
-
-  return createElement(TypographyConfigContext.Provider, { value }, children);
-}
-
-export function useTypographyConfig(): ResolvedTypographyConfig {
-  return useContext(TypographyConfigContext) ?? resolveTypographyConfig();
-}
-
 export function TypographySkip({
   children,
 }: TypographySkipProps): ReactElement {
@@ -100,7 +65,31 @@ export function TextWithTypography<TAs extends ElementType>(
   props: PolymorphicTextWithTypographyProps<TAs>,
 ): ReactElement;
 export function TextWithTypography(props: ImplementationProps): ReactElement {
-  const providerConfig = useTypographyConfig();
+  return renderTextWithTypography(props);
+}
+
+export function createTextWithTypography(
+  defaultConfig: TypographyConfigOverride,
+): typeof TextWithTypography {
+  function ConfiguredTextWithTypography(
+    props: TextWithTypographyFragmentProps,
+  ): ReactElement;
+  function ConfiguredTextWithTypography<TAs extends ElementType>(
+    props: PolymorphicTextWithTypographyProps<TAs>,
+  ): ReactElement;
+  function ConfiguredTextWithTypography(
+    props: ImplementationProps,
+  ): ReactElement {
+    return renderTextWithTypography(props, defaultConfig);
+  }
+
+  return ConfiguredTextWithTypography;
+}
+
+function renderTextWithTypography(
+  props: ImplementationProps,
+  defaultConfig?: TypographyConfigOverride,
+): ReactElement {
   const {
     as = null,
     children,
@@ -119,7 +108,7 @@ export function TextWithTypography(props: ImplementationProps): ReactElement {
   void dangerouslySetInnerHTML;
 
   const resolvedConfig = resolveTypographyConfig(
-    providerConfig,
+    defaultConfig,
     config,
     createShortcutConfig({
       disabled,

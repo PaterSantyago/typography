@@ -1,8 +1,7 @@
 export {
+  createTextWithTypography,
   TextWithTypography,
-  TypographyProvider,
   TypographySkip,
-  useTypographyConfig,
 } from "./components.js";
 export {
   isConcreteLocale,
@@ -59,7 +58,6 @@ export type {
   TypographyOperationId,
   TypographyOperationOverrides,
   TypographyPreset,
-  TypographyProviderProps,
   TypographyQuotesConfig,
   TypographyRulesConfig,
   TypographySkipPredicate,

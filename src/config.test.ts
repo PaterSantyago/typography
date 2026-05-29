@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  createTextWithTypography,
   TextWithTypography,
   typographPlainTextWithConfig,
   resolveTypographyConfig,
@@ -10,7 +11,7 @@ import {
 import type { TextWithTypographyProps } from "./index.js";
 
 describe("resolveTypographyConfig", () => {
-  it("applies defaults, provider config, local config, and shortcut-style overrides in order", () => {
+  it("applies defaults, site defaults, local config, and shortcut-style overrides in order", () => {
     const config = resolveTypographyConfig(
       { locale: "en-US", preset: "ui" },
       { locale: "es", operations: { quotes: false } },
@@ -119,6 +120,19 @@ describe("typographText", () => {
 });
 
 describe("public TextWithTypography types", () => {
+  it("supports site-local typography defaults without a provider", () => {
+    const SiteTextWithTypography = createTextWithTypography({
+      locale: "es",
+    });
+
+    expect(
+      SiteTextWithTypography({
+        as: "p",
+        children: '"Texto..."',
+      }),
+    ).toBeTypeOf("object");
+  });
+
   it("keeps unsafe HTML and implicit fragment wrapper props out of the API", () => {
     function assertPublicTypes(): void {
       const invalidHtml: TextWithTypographyProps<"h1"> = {
