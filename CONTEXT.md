@@ -12,9 +12,17 @@ _Avoid_: App-wide postprocessor, article renderer, CMS pipeline
 A local React typography boundary that applies typography rules to text nodes inside its children. It is not a global application transformer.
 _Avoid_: Global typographer, DOM postprocessor
 
+**Site Typography Defaults**:
+Central typography choices that an application reuses across many local typography boundaries. They belong to the consuming site and should remain explicit at the import boundary rather than behaving like ambient global state.
+_Avoid_: Global typography provider, mutable package defaults
+
 **Static Render Result**:
 The React output observed without browser layout or DOM mutation. It is the primary way this project verifies typography boundaries behave the same on the server and client.
 _Avoid_: Browser-corrected DOM, hydrated side effect
+
+**Server Component Compatibility**:
+A React-facing typography API can be imported and rendered from a server component boundary without requiring a client component boundary. It is stricter than a static render result because the module surface itself must fit server component constraints.
+_Avoid_: Plain SSR support, browserless render
 
 **Typography Engine**:
 The pure text-processing part that applies locale-specific typography operations to a string. It is separate from the React boundary that decides which text nodes should be processed.

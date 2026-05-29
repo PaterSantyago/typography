@@ -5,8 +5,8 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import {
+  createTextWithTypography,
   TextWithTypography,
-  TypographyProvider,
   TypographySkip,
   type TypographyHyphenator,
 } from "../../src/index.js";
@@ -67,14 +67,22 @@ Given(
 );
 
 Given(
-  "an English provider contains an English block and a local Spanish block",
+  "site typography defaults contain an English block and a local Spanish block",
   function (this: ScenarioWorld) {
+    const SiteTextWithTypography = createTextWithTypography({
+      locale: "en-US",
+    });
+
     this.tree = React.createElement(
-      TypographyProvider,
-      { config: { locale: "en-US" } },
-      React.createElement(TextWithTypography, { as: "p" }, '"English text..."'),
+      React.Fragment,
+      null,
       React.createElement(
-        TextWithTypography,
+        SiteTextWithTypography,
+        { as: "p" },
+        '"English text..."',
+      ),
+      React.createElement(
+        SiteTextWithTypography,
         { as: "p", locale: "es" },
         '"Texto español..."',
       ),
